@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://upload.wikimedia.org/wikipedia/commons/6/6c/Star_Wars_Logo.svg" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <a href="https://upload.wikimedia.org/wikipedia/commons/6/6c/Star_Wars_Logo.svg" target="blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Star_Wars_Logo.svg" width="120" alt="starwars Logo" /></a>
 </p>
 
 
