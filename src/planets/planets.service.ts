@@ -19,7 +19,7 @@ export class PlanetsService {
   }
 
   scheduleJob(){
-    this.cronService.scheduleJob("*/1 * * * *",`${Planet.name} Model`, this.savePlanet.bind(this))
+    this.cronService.scheduleJob("*/30 * * * *",`${Planet.name} Model`, this.savePlanet.bind(this))
   }
   
   async savePlanet() {
