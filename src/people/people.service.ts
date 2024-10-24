@@ -30,7 +30,7 @@ export class PeopleService {
       await this.peopleModel.create(peopleData)
     }
 
-    return 'People data is saved'
+    return 'People data saved successfully'
 
   }
 
@@ -44,6 +44,8 @@ export class PeopleService {
   }
 
   async findOne(name: string) {
+
+    console.log(name)
 
     const getBy = await this.peopleModel.findOne({name: name})
 
