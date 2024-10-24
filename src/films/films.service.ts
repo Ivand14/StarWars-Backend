@@ -1,6 +1,6 @@
 import { CreateFilmDto } from './dto/create-film.dto';
 import { Film } from './entities/film.entity';
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel} from '@nestjs/mongoose'
 import axios from 'axios';
@@ -20,7 +20,7 @@ export class FilmsService {
   }
 
   scheduleCronJob() {
-    this.cronService.scheduleJob('* * 8 * *', 'Films',this.saveData.bind(this));
+    this.cronService.scheduleJob('*/20 * * * *', 'Films',this.saveData.bind(this));
   }
 
 
@@ -28,11 +28,14 @@ export class FilmsService {
 
     const data = await axios.get(`${envsValue.API_URL}/films`)
 
-    const films = data.data.results
+    const films:CreateFilmDto[] = data.data.results
 
     for (const filmData of films) {
       await this.FilmModel.create(films)
     }
+
+    if(!films)
+      throw new InternalServerErrorException("error when collecting data")
     
     return 'Films saved'
   }
@@ -41,7 +44,7 @@ export class FilmsService {
     const allFilms = await this.FilmModel.find()
 
     if(!allFilms)
-      throw new BadRequestException('Not films found')
+      throw new NotFoundException('Not films found')
 
     return allFilms
   }
