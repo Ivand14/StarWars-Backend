@@ -1,20 +1,61 @@
 import { CreateFilmDto } from './dto/create-film.dto';
-import { Injectable } from '@nestjs/common';
-import { UpdateFilmDto } from './dto/update-film.dto';
+import { Film } from './entities/film.entity';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { InjectModel} from '@nestjs/mongoose'
+import axios from 'axios';
+import { CronService } from 'src/cron/cron.service';
+
 
 @Injectable()
 export class FilmsService {
-  create(createFilmDto: CreateFilmDto) {
-    return 'This action adds a new film';
+
+  constructor(
+    @InjectModel(Film.name)
+    private readonly FilmModel: Model<Film>,
+    private readonly cronService: CronService
+  ){
+    this.scheduleCronJob()
   }
 
-  findAll() {
-    return `This action returns all films`;
+  scheduleCronJob() {
+    this.cronService.scheduleJob('0 * * * *', 'syncFilms',this.saveData.bind(this));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} film`;
+
+  async saveData() {
+
+    const data = await axios.get('https://swapi.dev/api/films')
+
+    const films = data.data.results
+
+    for (const filmData of films) {
+      await this.FilmModel.create(films)
+    }
+    
+    return 'Films saved'
   }
+
+  async findAll() {
+    const allFilms = await this.FilmModel.find()
+
+    if(!allFilms)
+      throw new BadRequestException('Not films found')
+
+    return allFilms
+  }
+
+  async findOne(episode: number) {
+
+    const getBy = await this.FilmModel.findOne({episode_id:episode})
+
+    if(!getBy)
+      throw new NotFoundException(`Film whit ID: ${episode} not found`)
+
+    return getBy
+
+  }
+
 
 
 }

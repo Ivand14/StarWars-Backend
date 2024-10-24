@@ -15,6 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
         schema: filmSchema
       }
     ])
+    
   ]
 })
 export class FilmsModule {}
