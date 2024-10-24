@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { InjectModel} from '@nestjs/mongoose'
 import axios from 'axios';
 import { CronService } from 'src/cron/cron.service';
+import { envsValue } from 'src/config/envs';
 
 
 @Injectable()
@@ -25,7 +26,7 @@ export class FilmsService {
 
   async saveData() {
 
-    const data = await axios.get('https://swapi.dev/api/films')
+    const data = await axios.get(`${envsValue.API_URL}/films`)
 
     const films = data.data.results
 
