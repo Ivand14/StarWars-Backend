@@ -31,7 +31,7 @@ export class FilmsService {
     const films:CreateFilmDto[] = data.data.results
 
     for (const filmData of films) {
-      await this.FilmModel.create(films)
+      await this.FilmModel.create(filmData)
     }
 
     if(!films)
