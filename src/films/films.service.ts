@@ -19,7 +19,7 @@ export class FilmsService {
   }
 
   scheduleCronJob() {
-    this.cronService.scheduleJob('0 * * * *', 'syncFilms',this.saveData.bind(this));
+    this.cronService.scheduleJob('* * 8 * *', 'Films',this.saveData.bind(this));
   }
 
 
