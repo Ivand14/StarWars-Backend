@@ -6,7 +6,7 @@ import { INestApplication } from '@nestjs/common';
 import { PlanetsController } from './planets.controller';
 import { PlanetsService } from './planets.service';
 
-describe('PlanetController', async() => {
+describe('PlanetController', () => {
     let app : INestApplication
     let planetService = {
         findAll : () => [
