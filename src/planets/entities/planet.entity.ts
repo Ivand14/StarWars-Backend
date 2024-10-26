@@ -26,10 +26,10 @@ export class Planet extends Document {
     terrain: string
     
     @Prop()
-    surface_water:number
+    surface_water:string
 
     @Prop()
-    population: number
+    population: string
 
     @Prop([String])
     residents: string[]

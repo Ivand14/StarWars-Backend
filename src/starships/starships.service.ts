@@ -1,19 +1,36 @@
-import { CreateStarshipDto } from './dto/create-starship.dto';
-import { Injectable } from '@nestjs/common';
-import { UpdateStarshipDto } from './dto/update-starship.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Starship } from './entities/starship.entity';
+import { Model } from 'mongoose';
+
 
 @Injectable()
 export class StarshipsService {
-  create(createStarshipDto: CreateStarshipDto) {
-    return 'This action adds a new starship';
+
+  constructor(
+    @InjectModel(Starship.name)
+    private  starshipsModel: Model<Starship>,
+  ){}
+
+
+  async findAll() {
+    const allFilms = await this.starshipsModel.find()
+
+    if(!allFilms)
+      throw new NotFoundException('Not people found')
+
+    return allFilms
   }
 
-  findAll() {
-    return `This action returns all starships`;
-  }
+  async findOne(name: string) {
 
-  findOne(id: number) {
-    return `This action returns a #${id} starship`;
+    const getBy = await this.starshipsModel.findOne({name: name})
+
+    if(!getBy)
+      throw new NotFoundException(`${name} not found`)
+
+    return getBy
+
   }
 
 

@@ -6,12 +6,6 @@ import { FilmsService } from './films.service';
 export class FilmsController {
   constructor(private readonly filmsService: FilmsService) {}
 
-
-  @Get('save')
-  saveInDB(){
-    return this.filmsService.saveData()
-  }
-
   @Get()
   findAll() {
     return this.filmsService.findAll();

@@ -6,10 +6,6 @@ import { CreatePlanetDto } from './dto/create-planet.dto';
 export class PlanetsController {
   constructor(private readonly planetsService: PlanetsService) {}
 
-  @Get('save')
-  savePlanet(){
-    return this.planetsService.savePlanet()
-  }
 
   @Get()
   findAll() {

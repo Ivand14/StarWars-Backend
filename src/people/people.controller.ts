@@ -6,10 +6,6 @@ import { CreatePersonDto } from './dto/create-person.dto';
 export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}
 
-  @Get('save')
-  savePeopleData(){
-    return this.peopleService.savePeopleData()
-  }
 
   @Get()
   findAll() {

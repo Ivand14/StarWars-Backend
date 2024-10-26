@@ -30,7 +30,7 @@ export class CreatePlanetDto {
 
     @IsNumber()
     @IsPositive()
-    population: number;
+    population: string;
 
     @IsArray()
     @IsString({ each: true })
