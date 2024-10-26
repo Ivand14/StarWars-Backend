@@ -75,7 +75,7 @@ describe('FilmsController', () => {
     });
 
     it('/GET :episode', () => {
-        const episode = 5
+        const episode:number = 5
         return request(app.getHttpServer())
         .get(`/films/${episode}`)
         .expect(200)
