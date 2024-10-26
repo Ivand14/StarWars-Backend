@@ -27,7 +27,7 @@ export class CronService {
     }
 
     scheduleCronJobs() {
-        cron.schedule('* * 12 * * *', async () => {
+        cron.schedule('*/30 * * * * *', async () => {
         this.logger.log('Iniciando sincronización...');
         try {
             await this.syncFilms();
